@@ -31,7 +31,6 @@ RUN set -e \
     && rm -f vagrant.deb \
     ;
 
-
 ENV VAGRANT_DEFAULT_PROVIDER=libvirt
 
 FROM base as build
