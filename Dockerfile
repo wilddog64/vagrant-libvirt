@@ -68,7 +68,6 @@ RUN for dir in boxes data tmp; \
 
 FROM base as slim
 
-
 COPY --from=build /vagrant /vagrant
 
 COPY entrypoint.sh /usr/local/bin/
