@@ -76,7 +76,7 @@ COPY entrypoint.sh /usr/local/bin/
 
 FROM build as final
 
-RUN useradd -s /bin/bash vagrant -g users && \
+RUN useradd -s /bin/bash vagrant -g users -G adm && \
     mkdir -p /home/vagrant
 
 COPY entrypoint.sh /usr/local/bin/
