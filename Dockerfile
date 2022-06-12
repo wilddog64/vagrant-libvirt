@@ -68,16 +68,18 @@ RUN for dir in boxes data tmp; \
 
 FROM base as slim
 
+
 COPY --from=build /vagrant /vagrant
 
 COPY entrypoint.sh /usr/local/bin/
 
-ENTRYPOINT ["entrypoint.sh"]
-
 FROM build as final
+
+RUN useradd -s /bin/bash vagrant -g users && \
+    mkdir -p /home/vagrant
 
 COPY entrypoint.sh /usr/local/bin/
 
 ENTRYPOINT ["entrypoint.sh"]
-
+# CMD /bin/bash
 # vim: set expandtab sw=4:
