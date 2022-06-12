@@ -37,8 +37,9 @@ ENV VAGRANT_DEFAULT_PROVIDER=libvirt
 FROM base as build
 
 # allow caching of packages for build
-RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
-RUN sed -i '/deb-src/s/^# //' /etc/apt/sources.list
+RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache \
+   && sed -i '/deb-src/s/^# //' /etc/apt/sources.list
+
 RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
     apt update \
     && apt build-dep -y \
