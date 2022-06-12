@@ -57,8 +57,9 @@ RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/
 WORKDIR /build
 
 COPY . .
-RUN rake build
-RUN vagrant plugin install ./pkg/vagrant-libvirt*.gem
+# RUN rake build
+# RUN vagrant plugin install ./pkg/vagrant-libvirt*.gem
+RUN vagrant plugin vagrant-libvirt && vagrant plugin list
 
 RUN for dir in boxes data tmp; \
     do \
