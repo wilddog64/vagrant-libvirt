@@ -17,9 +17,8 @@ RUN apt update \
         qemu-utils \
         rsync \
     && rm -rf /var/lib/apt/lists \
-    ;
+    && mkdir /vagrant
 
-RUN mkdir /vagrant
 ENV VAGRANT_HOME /vagrant
 
 ARG VAGRANT_VERSION
