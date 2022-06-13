@@ -73,6 +73,7 @@ COPY entrypoint.sh /usr/local/bin/
 FROM build as final
 
 ENV VAGRANT_DEFAULT_PROVIDER=libvirt
+
 RUN useradd -s /bin/bash vagrant -g users -G adm && \
     mkdir -p /home/vagrant && \
     vagrant plugin install vagrant-libvirt && \
