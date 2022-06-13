@@ -2,20 +2,22 @@
 ARG VAGRANT_VERSION=2.2.19
 
 
-FROM ubuntu:bionic as base
+FROM ubuntu:focal as base
 
-RUN apt update \
-    && apt install -y --no-install-recommends \
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         bash \
         ca-certificates \
         curl \
         git \
         gosu \
         kmod \
-        libvirt-bin \
+        libvirt-daemon-system \
+        libvirt-clients \
         openssh-client \
         qemu-utils \
         rsync \
+        vim-tiny \
     && rm -rf /var/lib/apt/lists \
     && mkdir /vagrant
 
@@ -25,8 +27,8 @@ ARG VAGRANT_VERSION
 ENV VAGRANT_VERSION ${VAGRANT_VERSION}
 RUN set -e \
     && curl https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb -o vagrant.deb \
-    && apt update \
-    && apt install -y ./vagrant.deb \
+    && apt-get update \
+    && apt-get install -y ./vagrant.deb \
     && rm -rf /var/lib/apt/lists/* \
     && rm -f vagrant.deb \
     ;
@@ -38,11 +40,11 @@ RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloa
    && sed -i '/deb-src/s/^# //' /etc/apt/sources.list
 
 RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
-    apt update \
-    && apt build-dep -y \
+    apt-get update \
+    && apt-get build-dep -y \
         vagrant \
         ruby-libvirt \
-    && apt install -y --no-install-recommends \
+    && apt-get install -y --no-install-recommends \
         libxslt-dev \
         libxml2-dev \
         libvirt-dev \
