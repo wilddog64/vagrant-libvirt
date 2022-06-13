@@ -154,4 +154,6 @@ then
     exec gosu ${USER} vagrant help >&3
 fi
 
+
+export PATH=/opt/vagrant/embedded/bin/ruby:$PATH
 exec gosu ${USER} "$@" >&3
