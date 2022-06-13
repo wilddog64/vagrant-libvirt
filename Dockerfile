@@ -74,7 +74,10 @@ FROM build as final
 
 ENV VAGRANT_DEFAULT_PROVIDER=libvirt
 RUN useradd -s /bin/bash vagrant -g users -G adm && \
-    mkdir -p /home/vagrant
+    mkdir -p /home/vagrant && \
+    vagrant plugin install vagrant-libvirt && \
+    vagrant plugin list && \
+    mv /usr/bin/ruby /usr/bin/ruby.old
 
 COPY entrypoint.sh /usr/local/bin/
 
