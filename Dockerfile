@@ -31,8 +31,6 @@ RUN set -e \
     && rm -f vagrant.deb \
     ;
 
-ENV VAGRANT_DEFAULT_PROVIDER=libvirt
-
 FROM base as build
 
 # allow caching of packages for build
@@ -74,6 +72,7 @@ COPY entrypoint.sh /usr/local/bin/
 
 FROM build as final
 
+ENV VAGRANT_DEFAULT_PROVIDER=libvirt
 RUN useradd -s /bin/bash vagrant -g users -G adm && \
     mkdir -p /home/vagrant
 
